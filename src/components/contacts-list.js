@@ -28,8 +28,7 @@ export default class ContactsList extends Component {
     const contacts = this.state.contacts.filter((contact) => contact.id !== id);
 
     API.delete(`/contacts/${id}`)
-
-    this.setState({ contacts });
+      .then(() => { this.setState({ contacts }); })
   }
 
   renderPagination() {

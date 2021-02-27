@@ -3,8 +3,8 @@ import { Switch, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
-import ContactsList from "./components/contacts-list.component";
-import AddContact from "./components/add-contact.component";
+import ContactsList from "./components/contacts-list";
+import ContactForm from "./components/contact-form";
 
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
@@ -32,7 +32,7 @@ class App extends Component{
           <Col className="mt-5">
             <Switch>
               <Route exact path={["/"]} component={ContactsList} />
-              <Route exact path={"/add"} component={AddContact} />
+              <Route exact path={["/update/:id", "/add"]} component={ContactForm} />
             </Switch>
           </Col>
         </Row>
