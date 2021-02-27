@@ -18,7 +18,8 @@ export default class ContactForm extends Component {
         email: '',
         phone_number: ''
       },
-      redirect: false
+      redirect: false,
+      errors: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -54,14 +55,33 @@ export default class ContactForm extends Component {
     if (this.state.id !== null) {
       API.patch(`/contacts/${this.state.id}`, { contact: this.state.contact })
         .then(() => this.setState({ redirect: true }))
+        .catch((error) => {
+          var errors = {}
+
+          Object.keys(error.response.data).forEach((key) => {
+            errors[key] = error.response.data[key][0]
+          })
+
+          this.setState({ errors })
+        })
     } else {
       API.post(`/contacts`, { contact: this.state.contact })
         .then(() => this.setState({ redirect: true }))
+        .catch((error) => {
+          var errors = {}
+
+          Object.keys(error.response.data).forEach((key) => {
+            errors[key] = error.response.data[key][0]
+          })
+
+          this.setState({ errors })
+        })
     }
   }
 
   render() {
     const { redirect } = this.state;
+    const { errors } = this.state
 
      if (redirect) {
        return <Redirect to='/'/>;
@@ -76,7 +96,12 @@ export default class ContactForm extends Component {
               name="first_name"
               defaultValue={this.state.contact.first_name}
               onChange={this.handleChange}
-              placeholder="Jorge" />
+              placeholder="Jorge"
+              required
+              isInvalid={errors.first_name !== undefined} />
+            <Form.Control.Feedback type="invalid">
+              {errors.first_name}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} controlId="last_name">
@@ -85,7 +110,12 @@ export default class ContactForm extends Component {
               name="last_name"
               defaultValue={this.state.contact.last_name}
               onChange={this.handleChange}
-              placeholder="Peris" />
+              placeholder="Peris"
+              required
+              isInvalid={errors.last_name !== undefined} />
+            <Form.Control.Feedback type="invalid">
+              {errors.last_name}
+            </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
 
@@ -97,7 +127,12 @@ export default class ContactForm extends Component {
               defaultValue={this.state.contact.email}
               onChange={this.handleChange}
               type="email"
-              placeholder="example@example.com" />
+              placeholder="example@example.com"
+              required
+              isInvalid={errors.email !== undefined} />
+            <Form.Control.Feedback type="invalid">
+              {errors.email}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col} controlId="phone_number">
@@ -106,7 +141,12 @@ export default class ContactForm extends Component {
               name="phone_number"
               defaultValue={this.state.contact.phone_number}
               onChange={this.handleChange}
-              placeholder="+34666554433" />
+              placeholder="+34666554433"
+              required
+              isInvalid={errors.phone_number !== undefined} />
+            <Form.Control.Feedback type="invalid">
+              {errors.phone_number}
+            </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
 
