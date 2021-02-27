@@ -9,9 +9,12 @@ import Pagination from 'react-bootstrap/Pagination';
 import API from '../api';
 
 export default class ContactsList extends Component {
-  state = {
-    contacts: [],
-    pagination: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      contacts: [],
+      pagination: []
+    };
   }
 
   componentDidMount() {
@@ -38,7 +41,10 @@ export default class ContactsList extends Component {
     }
     for(var i=1; i <= this.state.pagination.pages; i++){
       items.push(
-        <Pagination.Item key={i} active={i === Number(this.state.pagination.current)} href={`?page=${i}`}>
+        <Pagination.Item
+          key={i}
+          active={i === Number(this.state.pagination.current)}
+          href={`?page=${i}`}>
           {i}
         </Pagination.Item>,
       );
@@ -69,8 +75,19 @@ export default class ContactsList extends Component {
                   <td>{contact.phone_number}</td>
                   <td>
                     <div className="text-center">
-                      <Button href={`/update/${contact.id}`} size="sm" className="mr-2" variant="primary">Update</Button>
-                      <Button size="sm" variant="danger" onClick={() => this.deleteContact(contact.id)}>Delete</Button>
+                      <Button
+                        href={`/update/${contact.id}`}
+                        size="sm"
+                        className="mr-2"
+                        variant="primary">
+                        Update
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => this.deleteContact(contact.id)}>
+                        Delete
+                      </Button>
                     </div>
                   </td>
                 </tr>
