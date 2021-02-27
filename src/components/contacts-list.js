@@ -49,7 +49,7 @@ export default class ContactsList extends Component {
   render() {
     return (
       <div>
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>First Name</th>
