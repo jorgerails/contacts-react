@@ -31,7 +31,7 @@ class App extends Component{
         <Row>
           <Col className="mt-5">
             <Switch>
-              <Route exact path={["/", "/contacts"]} component={ContactsList} />
+              <Route exact path={["/"]} component={ContactsList} />
               <Route exact path={"/add"} component={AddContact} />
             </Switch>
           </Col>
