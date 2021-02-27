@@ -12,4 +12,4 @@ A React application that perform CRUD operation for contacts using an API to con
  REACT_APP_API_KEY='any-api-key'
  REACT_APP_API_BASE_URL='http://localhost:3000'
  ```
-- Just run `npm start` to start application in port 4000
+- Just run `npm start` to start application
