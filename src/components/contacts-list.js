@@ -13,7 +13,8 @@ export default class ContactsList extends Component {
     super(props);
     this.state = {
       contacts: [],
-      pagination: []
+      pagination: [],
+      api_error: false
     };
   }
 
@@ -24,6 +25,11 @@ export default class ContactsList extends Component {
         const pagination = res.data.pagination;
         this.setState({ contacts });
         this.setState({ pagination });
+      })
+      .catch((error) => {
+        const api_error = true;
+
+        this.setState({ api_error });
       })
   }
 
@@ -53,6 +59,11 @@ export default class ContactsList extends Component {
   }
 
   render() {
+    if (this.state.api_error) {
+      return(
+        <div>There is an error connecting with rails app, probably heroku server is loading, just wait some seconds and refresh this page :)</div>
+      )
+    }
     return (
       <div>
         <Table striped bordered hover>
